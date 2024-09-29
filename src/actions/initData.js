@@ -58,6 +58,97 @@ export const initData = {
               columnId: 'column-1',
               title: 'Title of card 7',
               image: null
+            },
+            {
+              id: 'card-8',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 8',
+              image: null
+            },
+            {
+              id: 'card-9',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 9',
+              image: null
+            },
+            {
+              id: 'card-10',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 10',
+              image: null
+            },
+            {
+              id: 'card-11',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 11',
+              image: null
+            },
+            {
+              id: 'card-12',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 12',
+              image: null
+            },
+            {
+              id: 'card-13',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 13',
+              image: null
+            },
+            {
+              id: 'card-14',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 14',
+              image: null
+            },
+            {
+              id: 'card-15',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 15',
+              image: null
+            },
+            {
+              id: 'card-16',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 16',
+              image: null
+            },
+            {
+              id: 'card-17',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 17',
+              image: null
+            },
+            {
+              id: 'card-18',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 18',
+              image: null
+            },
+            {
+              id: 'card-19',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 19',
+              image: null
+            },
+            {
+              id: 'card-20',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 20',
+              image: null
             }
           ]
         },
