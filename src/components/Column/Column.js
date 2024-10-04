@@ -5,12 +5,10 @@ import { Container, Draggable } from 'react-smooth-dnd';
 
 const Column = (props) => {
 
-  const {column} = props;
+  const {column, onCardDrop} = props;
   const cards = mapOrder(column.cards, column.cardOrder, 'id');
 
-  const onCardDrop = (dropResult) => {
-    console.log('>>> inside onCardDrop: ', dropResult);
-  }
+
 
   return (
     <>
@@ -22,7 +20,7 @@ const Column = (props) => {
               groupName='col'
               // onDragStart={e => console.log('drag started', e)}
               // onDragEnd={e => console.log('drag end', e)}
-              onDrop={onCardDrop}
+              onDrop={(dropResult) => onCardDrop(dropResult, column.id)}
               getChildPayload={index => cards[index]}
               dragClass='card-ghost'
               dropClass='card-ghost-drop'
@@ -51,7 +49,11 @@ const Column = (props) => {
 
 
           </div>
-          <footer>Добавить новую задачу</footer>
+          <footer>
+            <div className='footer-action'>
+              <i className='fa fa-plus icon'></i> Добавить новую задачу
+            </div>
+          </footer>
         </div>
     </>
   )
