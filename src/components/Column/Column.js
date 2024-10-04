@@ -51,7 +51,7 @@ const Column = (props) => {
           </div>
           <footer>
             <div className='footer-action'>
-              <i className='fa fa-plus icon'></i> Добавить новую задачу
+              <i className='fa fa-plus icon'></i> Добавить новую карточку
             </div>
           </footer>
         </div>
