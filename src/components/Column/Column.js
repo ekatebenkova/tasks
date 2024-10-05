@@ -2,35 +2,116 @@ import './Column.scss';
 import Card from '../Card/Card';
 import { mapOrder } from '../../utilities/sorts';
 import { Container, Draggable } from 'react-smooth-dnd';
+import Dropdown from 'react-bootstrap/Dropdown';
+import ConfirmModal from '../Common/ConfirmModal';
+import Form from 'react-bootstrap/Form'
+import { useEffect, useRef, useState } from 'react';
+import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from '../../utilities/constant';
 
 const Column = (props) => {
 
-  const {column, onCardDrop} = props;
+  const {column, onCardDrop, onUpdateColumn} = props;
   const cards = mapOrder(column.cards, column.cardOrder, 'id');
 
+  const [isShowModalDelete, setShowModalDelete] = useState(false);
+  const [titleColumn, setTitleColumn] = useState('');
 
+  const [isFirstClick, setIsFirstClick] = useState(true);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (column && column.title) {
+      setTitleColumn(column.title);
+    }
+  }, [column])
+
+  const toggleModal = () => {
+    setShowModalDelete(!isShowModalDelete);
+  }
+
+  const onModalAction = (type) => {
+    if (type === MODAL_ACTION_CLOSE) {
+      // do nothing
+    }
+    if (type === MODAL_ACTION_CONFIRM) {
+      // remove a column
+      const newColumn = {
+        ...column,
+        _destroy: true
+      }
+      onUpdateColumn(newColumn);
+    }
+
+    toggleModal();
+  }
+
+  const selectAllText = (event) => {
+    setIsFirstClick(false);
+    if (isFirstClick) {
+      event.target.select();
+    } else {
+      inputRef.current.setSelectionRange(titleColumn.length, titleColumn.length);
+    }
+    // event.target.focus();
+  }
+
+  const handleClickOutside = () => {
+    // do something
+    setIsFirstClick(true);
+    const newColumn = {
+      ...column,
+      title: titleColumn,
+      _destroy: false
+    }
+    onUpdateColumn(newColumn);
+  }
 
   return (
     <>
         <div className="column">
-          <header className='column-drag-handle'>{column.title}</header>
+          <header className='column-drag-handle'>
+            <div className='column-title'>
+              
+              <Form.Control
+                size={"sm"}
+                type="text"
+                value={titleColumn}
+                className='customize-input-column'
+                onClick={selectAllText}
+                onChange={(event) => setTitleColumn(event.target.value)}
+                spellCheck='false'
+                onBlur={handleClickOutside}
+                onMouseDown={(e) => e.preventDefault()}
+                ref={inputRef}
+              />
+
+             
+            </div>
+            <div className='column-dropdown'>
+              <Dropdown>
+                <Dropdown.Toggle variant='' id='dropdown-basic' size='sm'>
+                  
+                </Dropdown.Toggle>
+              
+                <Dropdown.Menu>
+                  <Dropdown.Item href='#'>Добавить карточку</Dropdown.Item>
+                  <Dropdown.Item onClick={toggleModal}>Удалить эту колонку</Dropdown.Item>
+                  <Dropdown.Item href='#'>Something else</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            
+
+
+          </header>
           <div className='card-list'>
 
             <Container
               groupName='col'
-              // onDragStart={e => console.log('drag started', e)}
-              // onDragEnd={e => console.log('drag end', e)}
               onDrop={(dropResult) => onCardDrop(dropResult, column.id)}
               getChildPayload={index => cards[index]}
               dragClass='card-ghost'
               dropClass='card-ghost-drop'
-              // onDragEnter={() => {
-              //   console.log('drag enter: ', column.id);
-              // }}
-              // onDragLeave={() => {
-              //   console.log('drag leave: ', column.id);
-              // }}
-              // onDropReady={p => console.log('Drop ready: ', p)}
               dropPlaceholder={{
                 animationDuration: 150,
                 showOnTop: true,
@@ -55,6 +136,12 @@ const Column = (props) => {
             </div>
           </footer>
         </div>
+        <ConfirmModal
+          show={isShowModalDelete}
+          title={"Удалить колонку"}
+          content={`Вы действительно хотите удалить колонку: <b>${column.title}</b>`}
+          onAction={onModalAction}
+        />
     </>
   )
 }
