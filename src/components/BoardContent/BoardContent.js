@@ -128,6 +128,7 @@ const BoardContent = () => {
               </Draggable>
             )
           })}
+        </Container>
 
           {isShowAddList === false ?
             <div className='add-new-column' onClick={() => setIsShowAddList(true)}>
@@ -143,13 +144,13 @@ const BoardContent = () => {
                 onChange={(event) => setValueInput(event.target.value)}
               />
               <div className='group-btn'>
-                <button className='btn btn-success' onClick={() => handleAddList()}>Добавить колонку</button>
+                <button className='btn btn-primary' onClick={() => handleAddList()}>Добавить колонку</button>
                 <i className='fa fa-times icon' onClick={() => setIsShowAddList(false)}></i>
               </div>
             </div>
           }
 
-        </Container>
+        
         
       </div>
     </>
